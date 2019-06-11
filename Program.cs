@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace TeaLog
 {
@@ -6,7 +7,9 @@ namespace TeaLog
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello tea!");
+            //Ask user for input
+            Console.WriteLine("What would you like to do? Type Show or Edit.");
+            string result = Console.ReadLine();
         }
     }
 }
