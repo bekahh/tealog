@@ -9,3 +9,4 @@ C:\Users\Bekah\source\repos\TeaLog\obj\Debug\netcoreapp2.1\TeaLog.AssemblyInfoIn
 C:\Users\Bekah\source\repos\TeaLog\obj\Debug\netcoreapp2.1\TeaLog.AssemblyInfo.cs
 C:\Users\Bekah\source\repos\TeaLog\obj\Debug\netcoreapp2.1\TeaLog.dll
 C:\Users\Bekah\source\repos\TeaLog\obj\Debug\netcoreapp2.1\TeaLog.pdb
+C:\Users\Bekah\source\repos\TeaLog\bin\Debug\netcoreapp2.1\tea.json

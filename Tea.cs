@@ -23,7 +23,7 @@ namespace TeaLog
         public string CompanyName { get; set; }
 
         [JsonProperty(PropertyName = "contains_caffeine")]
-        public int ContainsCaffeine { get; set; }
+        public string ContainsCaffeine { get; set; }
 
         [JsonProperty(PropertyName = "rating")]
         public int Rating { get; set; }
