@@ -9,31 +9,32 @@ namespace TeaLog
         static void Main(string[] args)
         {
             string result = "";
-            //Handle input
-            while(result != "Quit")
+            string filePath = GetFileName();
+            TeaManager teaManager = new TeaManager(filePath);
+
+            while (result != "Quit")
             {
                 //Provide options and ask for user input
                 Console.WriteLine("What would you like to do?");
                 Console.WriteLine("To show a list of teas type Show.");
+                Console.WriteLine("To add a new tea to the list, type Add");
                 Console.WriteLine("To edit a tea, type Edit.");
                 Console.WriteLine("To exit this application type Quit.");
                 result = Console.ReadLine();
-                string filePath = GetFileName();
                 //If they type show
                 if (result == "Show")
                 {
-                    TeaManager teaManager = new TeaManager(filePath);
                     List<Tea> teaList = teaManager.ReadTeas();
                     foreach (var tea in teaList)
                     {
                         Console.WriteLine(tea.TeaName);
                     }
-                    Console.WriteLine("Would you like to see more details about one of these teas? " +
-                        "If so, type Yes. If not, type No.");
+                    Console.Write("Would you like to see more details about one of these teas? " +
+                        "If so, type Yes. If not, type No. ");
                     string answer = Console.ReadLine();
                     if(answer == "Yes")
                     {
-                        Console.WriteLine("Type the name of the tea whose details you would like to view.");
+                        Console.Write("Type the name of the tea whose details you would like to view: ");
                         string teaAnswer = Console.ReadLine();
                         var selectedTea = teaList.Find(s => s.TeaName == teaAnswer);
                         Console.WriteLine("\nTea Name: " + selectedTea.TeaName + "\nTea Type: " + 
@@ -47,10 +48,37 @@ namespace TeaLog
                     }
 
                 }
-                //If they type edit
+                //If they type Add
+                else if(result == "Add")
+                {
+                    Console.Write("Type the name of the tea to add: ");
+                    string teaName = Console.ReadLine();
+                    Console.Write("Enter the tea type(ex. \"green\"):  ");
+                    string teaType = Console.ReadLine();
+                    Console.Write("Type the name of the company the tea came from: ");
+                    string companyName = Console.ReadLine();
+                    Console.Write("Does the tea contain caffeine? Type Yes or No: ");
+                    string containsCaffeine = Console.ReadLine();
+                    Console.Write("Give this tea a rating on a scale of 1 to 5 (5 being the best): ");
+                    string rating = Console.ReadLine();
+                    Console.Write("Type any notes you have about the tea: ");
+                    string notes = Console.ReadLine();
+                    Tea newTea = new Tea
+                    {
+                        TeaName = teaName,
+                        TeaType = teaType,
+                        CompanyName = companyName,
+                        ContainsCaffeine = containsCaffeine,
+                        Rating = Int32.Parse(rating),
+                        Notes = notes
+                    };
+                    teaManager.AddTea(newTea);
+                    Console.WriteLine(teaName);
+                }
+                //If they type Edit
 
 
-                //After handling input, keep asking for input until they type 'quit'
+                //After handling input, keep asking for input until they type 'Quit'
                 else if (result == "Quit")
                 {
                     return;

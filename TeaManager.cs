@@ -31,7 +31,12 @@ namespace TeaLog
             return teas;
         }
         
-
+        //Add
+        public void AddTea(Tea tea)
+        {
+            List<Tea> teas = ReadTeas();
+            teas.Add(tea);
+        }
 
         //edit
 
