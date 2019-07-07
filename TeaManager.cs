@@ -36,6 +36,11 @@ namespace TeaLog
         {
             List<Tea> teas = ReadTeas();
             teas.Add(tea);
+            using (StreamWriter file = File.CreateText(FilePath))
+            {
+                JsonSerializer serializer = new JsonSerializer();
+                serializer.Serialize(file, teas);
+            }
         }
 
         //edit
