@@ -34,12 +34,14 @@ namespace TeaLog
         //Add
         public void AddTea(Tea tea)
         {
-            List<Tea> teas = ReadTeas();
+            List<Tea> teas = ReadTeas(); 
             teas.Add(tea);
-            using (StreamWriter file = File.CreateText(FilePath))
+
+            JsonSerializer serializer = new JsonSerializer();
+            using (StreamWriter writer = new StreamWriter(FilePath))
+            using(JsonTextWriter jsonWriter = new JsonTextWriter(writer))
             {
-                JsonSerializer serializer = new JsonSerializer();
-                serializer.Serialize(file, teas);
+                serializer.Serialize(jsonWriter, teas);
             }
         }
 
