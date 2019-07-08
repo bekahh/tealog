@@ -34,13 +34,7 @@ namespace TeaLog
         {
             List<Tea> teas = ReadTeas(); 
             teas.Add(tea);
-
-            JsonSerializer serializer = new JsonSerializer();
-            using (StreamWriter writer = new StreamWriter(FilePath))
-            using(JsonTextWriter jsonWriter = new JsonTextWriter(writer))
-            {
-                serializer.Serialize(jsonWriter, teas);
-            }
+            SerializeTeas(teas);
         }
 
         public void DeleteTea(string teaName)
@@ -48,6 +42,17 @@ namespace TeaLog
             List<Tea> teas = ReadTeas();
             Tea teaToRemove = teas.Find(t => t.TeaName == teaName);
             teas.Remove(teaToRemove);
+            SerializeTeas(teas);
+        }
+
+        private void SerializeTeas(List<Tea> teas)
+        {
+            JsonSerializer serializer = new JsonSerializer();
+            using (StreamWriter writer = new StreamWriter(FilePath))
+            using (JsonTextWriter jsonWriter = new JsonTextWriter(writer))
+            {
+                serializer.Serialize(jsonWriter, teas);
+            }
         }
     }
 }
