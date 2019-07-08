@@ -5,11 +5,9 @@ using System.IO;
 using System.Text;
 
 namespace TeaLog
-{
+{   //This class does the adding, editing, deleting of the tea.
     public class TeaManager
     {
-        //This class can do the adding, editing, deleting.
-        //this will show encapsulation.
         private List<Tea> Teas;
         public string FilePath;
 
@@ -18,7 +16,7 @@ namespace TeaLog
             FilePath = filePath;
         }
 
-        //read
+        //Deserialize list of teas from file and return.
         public List<Tea> ReadTeas()
         {
             List<Tea> teas = new List<Tea>();
@@ -31,8 +29,8 @@ namespace TeaLog
             return teas;
         }
         
-        //Add
-        public void AddTea(Tea tea)
+        //Add new tea to tea list then serialize back to original file.
+        public void AddTea(Tea tea) 
         {
             List<Tea> teas = ReadTeas(); 
             teas.Add(tea);
@@ -45,8 +43,6 @@ namespace TeaLog
             }
         }
 
-        //edit
 
-        //delete
     }
 }

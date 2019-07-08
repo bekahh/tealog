@@ -14,14 +14,14 @@ namespace TeaLog
 
             while (result != "Quit")
             {
-                //Provide options and ask for user input
-                Console.WriteLine("What would you like to do?");
+                //Provide options and ask for user input.
+                Console.WriteLine("\nWhat would you like to do?");
                 Console.WriteLine("To show a list of teas type Show.");
                 Console.WriteLine("To add a new tea to the list, type Add");
                 Console.WriteLine("To edit a tea, type Edit.");
                 Console.WriteLine("To exit this application type Quit.");
                 result = Console.ReadLine();
-                //If they type show
+                //If the user type show, deserialize and display tea names.
                 if (result == "Show")
                 {
                     List<Tea> teaList = teaManager.ReadTeas();
@@ -31,6 +31,9 @@ namespace TeaLog
                     }
                     Console.Write("Would you like to see more details about one of these teas? " +
                         "If so, type Yes. If not, type No. ");
+                    
+                    //If the user types Yes, ask for the name of the tea they wish to view
+                    //then show all fields for that tea.
                     string answer = Console.ReadLine();
                     if(answer == "Yes")
                     {
@@ -42,13 +45,14 @@ namespace TeaLog
                             "\nCaffeinated: " + selectedTea.ContainsCaffeine + "\nRating(1-5, 5 being best): " + selectedTea.Rating +
                             "\nNotes: " + selectedTea.Notes + "\n");
                     }
+                    //If the user types no, go back to the main menu.
                     else if(answer == "No")
                     {
                         continue;
                     }
 
                 }
-                //If they type Add
+                //If the user types Add, ask for each field then run add the tea to the main list.
                 else if(result == "Add")
                 {
                     Console.Write("Type the name of the tea to add: ");
@@ -73,7 +77,7 @@ namespace TeaLog
                         Notes = notes
                     };
                     teaManager.AddTea(newTea);
-                    Console.WriteLine(teaName);
+                    Console.WriteLine("\nYour tea has been successfully added!");
                 }
                 //If they type Edit
 
@@ -83,12 +87,11 @@ namespace TeaLog
                 {
                     return;
                 }
-                //If they type show
             }
 
 
         }
-
+        //Get the name of the json file that has the teas.
         public static string GetFileName()
         {
             string myDirectory = Directory.GetCurrentDirectory();
