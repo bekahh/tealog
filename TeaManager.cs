@@ -43,6 +43,11 @@ namespace TeaLog
             }
         }
 
-
+        public void DeleteTea(string teaName)
+        {
+            List<Tea> teas = ReadTeas();
+            Tea teaToRemove = teas.Find(t => t.TeaName == teaName);
+            teas.Remove(teaToRemove);
+        }
     }
 }
