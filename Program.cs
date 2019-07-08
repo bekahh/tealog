@@ -8,8 +8,11 @@ namespace TeaLog
     {
         static void Main(string[] args)
         {
+            string myDirectory = Directory.GetCurrentDirectory();
+            DirectoryInfo directory = new DirectoryInfo(myDirectory);
+            string filePath = Path.Combine(directory.FullName, "tea.json");
+
             string result = "";
-            string filePath = GetFileName();
             TeaManager teaManager = new TeaManager(filePath);
 
             while (result != "Quit")
@@ -90,14 +93,6 @@ namespace TeaLog
             }
 
 
-        }
-        //Get the name of the json file that has the teas.
-        public static string GetFileName()
-        {
-            string myDirectory = Directory.GetCurrentDirectory();
-            DirectoryInfo directory = new DirectoryInfo(myDirectory);
-            string fullFileName = Path.Combine(directory.FullName, "tea.json");
-            return fullFileName;
         }
     }
 }
