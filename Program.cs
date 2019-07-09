@@ -21,10 +21,12 @@ namespace TeaLog
                 Console.WriteLine("\nWhat would you like to do?");
                 Console.WriteLine("To show a list of teas type Show.");
                 Console.WriteLine("To add a new tea to the list, type Add.");
+                Console.WriteLine("To edit an existing tea, type Edit.");
                 Console.WriteLine("To delete a tea, type Delete.");
                 Console.WriteLine("To exit this application type Quit.");
                 result = Console.ReadLine();
-                //If the user type show, deserialize and display tea names.
+
+                //If the user types show, deserialize and display tea names.
                 if (result == "Show")
                 {
                     List<Tea> teaList = teaManager.ReadTeas();
@@ -82,12 +84,27 @@ namespace TeaLog
                     teaManager.AddTea(newTea);
                     Console.WriteLine("\nYour tea has been successfully added!");
                 }
-                //If they type Delete
+
+                //If the user types Edit
+                else if (result == "Edit")
+                {
+                    Console.Write("Type the name of the tea that you would like to edit: ");
+                    string editTeaName = Console.ReadLine();
+                    Console.Write("Which field would you like to edit? Type one of the following: + " +
+                        "Tea Name, Tea Type, Company Name, Contains Caffeine, Rating, or Notes)");
+                    string editFieldName = Console.ReadLine();
+                    Console.Write("Type the new value of the chosen field: ");
+                    string editFieldValue = Console.ReadLine();
+                    teaManager.EditTea(editTeaName, editFieldName, editFieldValue);
+                    Console.WriteLine("{0} was successfully changed to {1}!", editFieldName, editFieldValue);
+
+                }
+                //If the user types Delete
                 else if (result == "Delete")
                 {
                     Console.Write("Please type the name of the tea that you would like to delete: ");
                     string removeTea = Console.ReadLine();
-
+                    teaManager.DeleteTea(removeTea);
                 }
                 //After handling input, keep asking for input until the user types 'Quit'
                 else if (result == "Quit")

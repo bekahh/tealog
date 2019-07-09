@@ -37,6 +37,36 @@ namespace TeaLog
             SerializeTeas(teas);
         }
 
+        public void EditTea(string teaName, string fieldName, string fieldValue)
+        {
+            List<Tea> teas = ReadTeas();
+            Tea editTea = teas.Find(e => e.TeaName == teaName);
+            if(fieldName == "Tea Name")
+            {
+                editTea.TeaName = fieldValue;
+            }
+            else if(fieldName == "Tea Type")
+            {
+                editTea.TeaType = fieldValue;
+            }
+            else if(fieldName == "Company Name")
+            {
+                editTea.CompanyName = fieldValue;
+            }
+            else if(fieldName == "Contains Caffeine")
+            {
+                editTea.CompanyName = fieldValue;
+            }
+            else if(fieldName == "Rating")
+            {
+                editTea.Rating = Int32.Parse(fieldValue);
+            }
+            else if(fieldName == "Notes")
+            {
+                editTea.Notes = fieldValue;
+            }
+            SerializeTeas(teas);
+        }
         public void DeleteTea(string teaName)
         {
             List<Tea> teas = ReadTeas();
