@@ -8,6 +8,7 @@ namespace TeaLog
     {
         static void Main(string[] args)
         {
+            //Get file path to teas.json.
             string myDirectory = Directory.GetCurrentDirectory();
             DirectoryInfo directory = new DirectoryInfo(myDirectory);
             string filePath = Path.Combine(directory.FullName, "tea.json");
@@ -84,8 +85,8 @@ namespace TeaLog
                     teaManager.AddTea(newTea);
                     Console.WriteLine("\nYour tea has been successfully added!");
                 }
-
-                //If the user types Edit
+                //If the user types Edit, ask for name of tea to edit.
+                //Ask for field to edit then get new field value.
                 else if (result == "Edit")
                 {
                     Console.Write("Type the name of the tea that you would like to edit: ");
@@ -97,16 +98,15 @@ namespace TeaLog
                     string editFieldValue = Console.ReadLine();
                     teaManager.EditTea(editTeaName, editFieldName, editFieldValue);
                     Console.WriteLine("{0} was successfully changed to {1}!", editFieldName, editFieldValue);
-
                 }
-                //If the user types Delete
+                //If the user types Delete, ask for name of tea then delete it from file.
                 else if (result == "Delete")
                 {
                     Console.Write("Please type the name of the tea that you would like to delete: ");
                     string removeTea = Console.ReadLine();
                     teaManager.DeleteTea(removeTea);
                 }
-                //After handling input, keep asking for input until the user types 'Quit'
+                //If user types Quit, exit program.
                 else if (result == "Quit")
                 {
                     return;

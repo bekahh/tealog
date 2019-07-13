@@ -37,6 +37,7 @@ namespace TeaLog
             SerializeTeas(teas);
         }
 
+        //Edit existing tea and update to file.
         public void EditTea(string teaName, string fieldName, string fieldValue)
         {
             List<Tea> teas = ReadTeas();
@@ -67,6 +68,8 @@ namespace TeaLog
             }
             SerializeTeas(teas);
         }
+
+        //Delete an existing tea and update file.
         public void DeleteTea(string teaName)
         {
             List<Tea> teas = ReadTeas();
@@ -75,6 +78,7 @@ namespace TeaLog
             SerializeTeas(teas);
         }
 
+        //Serialize tea list to tea.json.
         private void SerializeTeas(List<Tea> teas)
         {
             JsonSerializer serializer = new JsonSerializer();

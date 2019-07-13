@@ -5,7 +5,7 @@ using System.Text;
 
 namespace TeaLog
 {
-
+    //Class to model data from tea.json
     public class Rootobject
     {
         public Tea[] Tea { get; set; }
