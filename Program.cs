@@ -13,8 +13,9 @@ namespace TeaLog
             DirectoryInfo directory = new DirectoryInfo(myDirectory);
             string filePath = Path.Combine(directory.FullName, "tea.json");
 
-            string result = "";
             TeaManager teaManager = new TeaManager(filePath);
+            List<Tea> teaList = teaManager.ReadTeas();
+            string result = "";
 
             while (result != "Quit")
             {
@@ -30,8 +31,8 @@ namespace TeaLog
                 //If the user types show, deserialize and display tea names.
                 if (result == "Show")
                 {
-                    List<Tea> teaList = teaManager.ReadTeas();
-                    foreach (var tea in teaList)
+                    List<Tea> showTeas = teaManager.ReadTeas();
+                    foreach (var tea in showTeas)
                     {
                         Console.WriteLine(tea.TeaName);
                     }
@@ -91,13 +92,21 @@ namespace TeaLog
                 {
                     Console.Write("Type the name of the tea that you would like to edit: ");
                     string editTeaName = Console.ReadLine();
-                    Console.Write("Which field would you like to edit? Type one of the following: + " +
+                    if(teaList.Exists(t => t.TeaName == editTeaName))
+                    {
+                        Console.Write("Which field would you like to edit? Type one of the following: + " +
                         "Tea Name, Tea Type, Company Name, Contains Caffeine, Rating, or Notes)");
-                    string editFieldName = Console.ReadLine();
-                    Console.Write("Type the new value of the chosen field: ");
-                    string editFieldValue = Console.ReadLine();
-                    teaManager.EditTea(editTeaName, editFieldName, editFieldValue);
-                    Console.WriteLine("{0} was successfully changed to {1}!", editFieldName, editFieldValue);
+                        string editFieldName = Console.ReadLine();
+                        Console.Write("Type the new value of the chosen field: ");
+                        string editFieldValue = Console.ReadLine();
+                        teaManager.EditTea(editTeaName, editFieldName, editFieldValue);
+                        Console.WriteLine("{0} was successfully changed to {1}!", editFieldName, editFieldValue);
+                    }
+                    else
+                    {
+                        Console.WriteLine("That tea does not exist, please try again.");
+                        continue;
+                    }
                 }
                 //If the user types Delete, ask for name of tea then delete it from file.
                 else if (result == "Delete")
