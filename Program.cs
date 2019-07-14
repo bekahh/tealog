@@ -32,8 +32,8 @@ namespace TeaLog
                 //If the user types show, deserialize and display tea names.
                 if (StringExtensions.FirstCharToUpper(result) == "Show")
                 {
-                    List<Tea> showTeas = teaManager.ReadTeas();
-                    foreach (var tea in showTeas)
+                    teaList = teaManager.ReadTeas();
+                    foreach (var tea in teaList)
                     {
                         Console.WriteLine(tea.TeaName);
                     }
@@ -45,6 +45,7 @@ namespace TeaLog
                     string answer = Console.ReadLine();
                     if(StringExtensions.FirstCharToUpper(answer) == "Yes")
                     {
+                        teaList = teaManager.ReadTeas();
                         Console.Write("Type the name of the tea whose details you would like to view: ");
                         string teaAnswer = Console.ReadLine();
                         var selectedTea = teaList.Find(s => s.TeaName == teaAnswer);
@@ -89,27 +90,29 @@ namespace TeaLog
                         };
                         teaManager.AddTea(newTea);
                         Console.WriteLine("\nYour tea has been successfully added!");
+                        //Allow adding an additional tea if desired.
                         Console.WriteLine("\nWould you like to add another tea? Type Yes or No: ");
                         additionalTea = Console.ReadLine();
                     } while (additionalTea == "Yes");
-
-
                 }
                 //If the user types Edit, ask for name of tea to edit.
                 //Ask for field to edit then get new field value.
                 else if (StringExtensions.FirstCharToUpper(result) == "Edit")
                 {
+                    Tea teaToEdit = new Tea();
+                    teaList = teaManager.ReadTeas();
                     Console.Write("Type the name of the tea that you would like to edit: ");
                     string editTeaName = Console.ReadLine();
                     if(teaList.Exists(t => t.TeaName == editTeaName))
                     {
-                        Console.Write("Which field would you like to edit? Type one of the following: + " +
+                        teaToEdit = teaList.Find(t => t.TeaName == editTeaName);
+                        Console.Write("Which field would you like to edit? Type one of the following: " +
                         "Tea Name, Tea Type, Company Name, Contains Caffeine, Rating, or Notes)");
                         string editFieldName = Console.ReadLine();
                         Console.Write("Type the new value of the chosen field: ");
                         string editFieldValue = Console.ReadLine();
-                        teaManager.EditTea(editTeaName, editFieldName, editFieldValue);
-                        Console.WriteLine("{0} was successfully changed to {1}!", editFieldName, editFieldValue);
+                        teaManager.EditTea(teaToEdit, editFieldName, editFieldValue);
+                        Console.WriteLine("\n{0} was successfully changed to {1}!", editFieldName, editFieldValue);
                     }
                     else
                     {

@@ -34,39 +34,39 @@ namespace TeaLog
         {
             List<Tea> teas = ReadTeas(); 
             teas.Add(tea);
-            SerializeTeas(teas);
+            SaveTeas(teas);
         }
 
         //Edit existing tea and update to file.
-        public void EditTea(string teaName, string fieldName, string fieldValue)
+        public void EditTea(Tea tea, string fieldName, string fieldValue)
         {
             List<Tea> teas = ReadTeas();
-            Tea editTea = teas.Find(e => e.TeaName == teaName);
+            tea = teas.Find(e => e.TeaName == tea.TeaName);
             if(fieldName == "Tea Name")
             {
-                editTea.TeaName = fieldValue;
+                tea.TeaName = fieldValue;
             }
             else if(fieldName == "Tea Type")
             {
-                editTea.TeaType = fieldValue;
+                tea.TeaType = fieldValue;
             }
             else if(fieldName == "Company Name")
             {
-                editTea.CompanyName = fieldValue;
+                tea.CompanyName = fieldValue;
             }
             else if(fieldName == "Contains Caffeine")
             {
-                editTea.CompanyName = fieldValue;
+                tea.CompanyName = fieldValue;
             }
             else if(fieldName == "Rating")
             {
-                editTea.Rating = Int32.Parse(fieldValue);
+                tea.Rating = Int32.Parse(fieldValue);
             }
             else if(fieldName == "Notes")
             {
-                editTea.Notes = fieldValue;
+                tea.Notes = fieldValue;
             }
-            SerializeTeas(teas);
+            SaveTeas(teas);
         }
 
         //Delete an existing tea and update file.
@@ -75,11 +75,11 @@ namespace TeaLog
             List<Tea> teas = ReadTeas();
             Tea teaToRemove = teas.Find(t => t.TeaName == teaName);
             teas.Remove(teaToRemove);
-            SerializeTeas(teas);
+            SaveTeas(teas);
         }
 
         //Serialize tea list to tea.json.
-        private void SerializeTeas(List<Tea> teas)
+        private void SaveTeas(List<Tea> teas)
         {
             JsonSerializer serializer = new JsonSerializer();
             using (StreamWriter writer = new StreamWriter(FilePath))
