@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace TeaLog
 {
@@ -29,7 +30,7 @@ namespace TeaLog
                 result = Console.ReadLine();
 
                 //If the user types show, deserialize and display tea names.
-                if (result == "Show")
+                if (StringExtensions.FirstCharToUpper(result) == "Show")
                 {
                     List<Tea> showTeas = teaManager.ReadTeas();
                     foreach (var tea in showTeas)
@@ -42,7 +43,7 @@ namespace TeaLog
                     //If the user types Yes, ask for the name of the tea they wish to view
                     //then show all fields for that tea.
                     string answer = Console.ReadLine();
-                    if(answer == "Yes")
+                    if(StringExtensions.FirstCharToUpper(answer) == "Yes")
                     {
                         Console.Write("Type the name of the tea whose details you would like to view: ");
                         string teaAnswer = Console.ReadLine();
@@ -59,36 +60,44 @@ namespace TeaLog
                     }
 
                 }
-                //If the user types Add, ask for each field then run add the tea to the main list.
-                else if(result == "Add")
+                //If the user types Add, ask for each field then add the tea to the main list.
+                else if(StringExtensions.FirstCharToUpper(result) == "Add")
                 {
-                    Console.Write("Type the name of the tea to add: ");
-                    string newTeaName = Console.ReadLine();
-                    Console.Write("Enter the tea type(ex. \"green\"):  ");
-                    string newTeaType = Console.ReadLine();
-                    Console.Write("Type the name of the company the tea came from: ");
-                    string newCompanyName = Console.ReadLine();
-                    Console.Write("Does the tea contain caffeine? Type Yes or No: ");
-                    string newContainsCaffeine = Console.ReadLine();
-                    Console.Write("Give this tea a rating on a scale of 1 to 5 (5 being the best): ");
-                    string newRating = Console.ReadLine();
-                    Console.Write("Type any notes you have about the tea: ");
-                    string newNotes = Console.ReadLine();
-                    Tea newTea = new Tea
+                    string additionalTea = "";
+                    do
                     {
-                        TeaName = newTeaName,
-                        TeaType = newTeaType,
-                        CompanyName = newCompanyName,
-                        ContainsCaffeine = newContainsCaffeine,
-                        Rating = Int32.Parse(newRating),
-                        Notes = newNotes
-                    };
-                    teaManager.AddTea(newTea);
-                    Console.WriteLine("\nYour tea has been successfully added!");
+                        Console.Write("Type the name of the tea to add: ");
+                        string newTeaName = Console.ReadLine();
+                        Console.Write("Enter the tea type(ex. \"green\"):  ");
+                        string newTeaType = Console.ReadLine();
+                        Console.Write("Type the name of the company the tea came from: ");
+                        string newCompanyName = Console.ReadLine();
+                        Console.Write("Does the tea contain caffeine? Type Yes or No: ");
+                        string newContainsCaffeine = Console.ReadLine();
+                        Console.Write("Give this tea a rating on a scale of 1 to 5 (5 being the best): ");
+                        string newRating = Console.ReadLine();
+                        Console.Write("Type any notes you have about the tea: ");
+                        string newNotes = Console.ReadLine();
+                        Tea newTea = new Tea
+                        {
+                            TeaName = newTeaName,
+                            TeaType = newTeaType,
+                            CompanyName = newCompanyName,
+                            ContainsCaffeine = newContainsCaffeine,
+                            Rating = Int32.Parse(newRating),
+                            Notes = newNotes
+                        };
+                        teaManager.AddTea(newTea);
+                        Console.WriteLine("\nYour tea has been successfully added!");
+                        Console.WriteLine("\nWould you like to add another tea? Type Yes or No: ");
+                        additionalTea = Console.ReadLine();
+                    } while (additionalTea == "Yes");
+
+
                 }
                 //If the user types Edit, ask for name of tea to edit.
                 //Ask for field to edit then get new field value.
-                else if (result == "Edit")
+                else if (StringExtensions.FirstCharToUpper(result) == "Edit")
                 {
                     Console.Write("Type the name of the tea that you would like to edit: ");
                     string editTeaName = Console.ReadLine();
@@ -109,14 +118,14 @@ namespace TeaLog
                     }
                 }
                 //If the user types Delete, ask for name of tea then delete it from file.
-                else if (result == "Delete")
+                else if (StringExtensions.FirstCharToUpper(result) == "Delete")
                 {
                     Console.Write("Please type the name of the tea that you would like to delete: ");
                     string removeTea = Console.ReadLine();
                     teaManager.DeleteTea(removeTea);
                 }
                 //If user types Quit, exit program.
-                else if (result == "Quit")
+                else if (StringExtensions.FirstCharToUpper(result) == "Quit")
                 {
                     return;
                 }
