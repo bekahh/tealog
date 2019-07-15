@@ -21,11 +21,11 @@ namespace TeaLog
             while (result != "Quit")
             {
                 //Provide options and ask for user input.
-                Console.WriteLine("\nWhat would you like to do?");
+                Console.WriteLine("What would you like to do?");
                 Console.WriteLine("To show a list of teas type Show.");
-                Console.WriteLine("To add a new tea to the list, type Add.");
-                Console.WriteLine("To edit an existing tea, type Edit.");
-                Console.WriteLine("To delete a tea, type Delete.");
+                Console.WriteLine("To add a new tea to the list type Add.");
+                Console.WriteLine("To edit an existing tea type Edit.");
+                Console.WriteLine("To delete a tea type Delete.");
                 Console.WriteLine("To exit this application type Quit.");
                 result = Console.ReadLine();
 
@@ -39,7 +39,6 @@ namespace TeaLog
                     }
                     Console.Write("Would you like to see more details about one of these teas? " +
                         "If so, type Yes. If not, type No. ");
-                    
                     //If the user types Yes, ask for the name of the tea they wish to view
                     //then show all fields for that tea.
                     string answer = Console.ReadLine();
@@ -49,7 +48,7 @@ namespace TeaLog
                         Console.Write("Type the name of the tea whose details you would like to view: ");
                         string teaAnswer = Console.ReadLine();
                         var selectedTea = teaList.Find(s => s.TeaName == teaAnswer);
-                        Console.WriteLine("\nTea Name: " + selectedTea.TeaName + "\nTea Type: " + 
+                        Console.WriteLine("Tea Name: " + selectedTea.TeaName + "\nTea Type: " + 
                             selectedTea.TeaType + "\nCompany name:  " + selectedTea.CompanyName +
                             "\nCaffeinated: " + selectedTea.ContainsCaffeine + "\nRating(1-5, 5 being best): " + selectedTea.Rating +
                             "\nNotes: " + selectedTea.Notes + "\n");
@@ -89,9 +88,9 @@ namespace TeaLog
                             Notes = newNotes
                         };
                         teaManager.AddTea(newTea);
-                        Console.WriteLine("\nYour tea has been successfully added!");
+                        Console.WriteLine("Your tea has been successfully added!");
                         //Allow adding an additional tea if desired.
-                        Console.WriteLine("\nWould you like to add another tea? Type Yes or No: ");
+                        Console.WriteLine("Would you like to add another tea? Type Yes or No: ");
                         additionalTea = Console.ReadLine();
                     } while (additionalTea == "Yes");
                 }
@@ -105,14 +104,24 @@ namespace TeaLog
                     string editTeaName = Console.ReadLine();
                     if(teaList.Exists(t => t.TeaName == editTeaName))
                     {
+                        string editOptions = "Tea Name, Tea Type, Company Name, Caffeine, Rating, or Notes";
                         teaToEdit = teaList.Find(t => t.TeaName == editTeaName);
                         Console.Write("Which field would you like to edit? Type one of the following: " +
-                        "Tea Name, Tea Type, Company Name, Contains Caffeine, Rating, or Notes)");
+                        "{0}. ", editOptions);
                         string editFieldName = Console.ReadLine();
-                        Console.Write("Type the new value of the chosen field: ");
-                        string editFieldValue = Console.ReadLine();
-                        teaManager.EditTea(teaToEdit, editFieldName, editFieldValue);
-                        Console.WriteLine("\n{0} was successfully changed to {1}!", editFieldName, editFieldValue);
+                        if (editOptions.Contains(editFieldName))
+                        {
+                            Console.Write("Type the new value of the chosen field: ");
+                            string editFieldValue = Console.ReadLine();
+                            teaManager.EditTea(teaToEdit, editFieldName, editFieldValue);
+                            Console.WriteLine("{0} was successfully changed to {1}!", editFieldName, editFieldValue);
+                        }
+                        else
+                        {
+                            Console.WriteLine("That field does not exist. Please try again.");
+                            continue;
+                        }
+
                     }
                     else
                     {
@@ -126,6 +135,7 @@ namespace TeaLog
                     Console.Write("Please type the name of the tea that you would like to delete: ");
                     string removeTea = Console.ReadLine();
                     teaManager.DeleteTea(removeTea);
+                    Console.WriteLine("{0} was successfully deleted!", removeTea);
                 }
                 //If user types Quit, exit program.
                 else if (StringExtensions.FirstCharToUpper(result) == "Quit")

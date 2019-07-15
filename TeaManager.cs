@@ -54,9 +54,9 @@ namespace TeaLog
             {
                 tea.CompanyName = fieldValue;
             }
-            else if(fieldName == "Contains Caffeine")
+            else if(fieldName == "Caffeine")
             {
-                tea.CompanyName = fieldValue;
+                tea.ContainsCaffeine = fieldValue;
             }
             else if(fieldName == "Rating")
             {
