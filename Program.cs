@@ -41,16 +41,25 @@ namespace TeaLog
                     //If the user types Yes, ask for the name of the tea they wish to view
                     //then show all fields for that tea.
                     string answer = Console.ReadLine();
-                    if(StringExtensions.FirstCharToUpper(answer) == "Yes")
+                    if(answer == "Yes")
                     {
                         teaList = teaManager.ReadTeas();
                         Console.Write("Type the name of the tea whose details you would like to view: ");
                         string teaAnswer = Console.ReadLine();
-                        var selectedTea = teaList.Find(s => s.TeaName == teaAnswer);
-                        Console.WriteLine("Tea Name: " + selectedTea.TeaName + "\nTea Type: " + 
-                            selectedTea.TeaType + "\nCompany name:  " + selectedTea.CompanyName +
-                            "\nCaffeinated: " + selectedTea.ContainsCaffeine + "\nRating(1-5, 5 being best): " + selectedTea.Rating +
-                            "\nNotes: " + selectedTea.Notes + "\n");
+                        if (teaList.Exists(t => t.TeaName == teaAnswer))
+                        {
+                            var selectedTea = teaList.Find(s => s.TeaName == teaAnswer);
+                            Console.WriteLine("Tea Name: " + selectedTea.TeaName + "\nTea Type: " +
+                                selectedTea.TeaType + "\nCompany name:  " + selectedTea.CompanyName +
+                                "\nCaffeinated: " + selectedTea.ContainsCaffeine + "\nRating(1-5, 5 being best): " + selectedTea.Rating +
+                                "\nNotes: " + selectedTea.Notes + "\n");
+                        }
+                        else
+                        {
+                            Console.WriteLine("That tea does not exist. Please try again.");
+                            continue;
+                        }
+
                     }
                     //If the user types no, go back to the main menu.
                     else if(answer == "No")
