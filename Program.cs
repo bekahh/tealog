@@ -16,21 +16,20 @@ namespace TeaLog
 
             TeaManager teaManager = new TeaManager(filePath);
             List<Tea> teaList = teaManager.ReadTeas();
-            string result = "";
+            int result = 0;
 
-            while (result != "Quit")
+            while (result != 5)
             {
                 //Provide options and ask for user input.
-                Console.WriteLine("What would you like to do?");
-                Console.WriteLine("To show a list of teas type Show.");
-                Console.WriteLine("To add a new tea to the list type Add.");
-                Console.WriteLine("To edit an existing tea type Edit.");
-                Console.WriteLine("To delete a tea type Delete.");
-                Console.WriteLine("To exit this application type Quit.");
-                result = Console.ReadLine();
-
-                //If the user types show, deserialize and display tea names.
-                if (StringExtensions.FirstCharToUpper(result) == "Show")
+                Console.WriteLine("What would you like to do? Type one of the below numbers to choose.");
+                Console.WriteLine("(1) Show a list of teas.");
+                Console.WriteLine("(2) Add a new tea to the list.");
+                Console.WriteLine("(3) Edit an existing tea.");
+                Console.WriteLine("(4) Delete a tea.");
+                Console.WriteLine("(5) Exit this application.");
+                result = Int32.Parse(Console.ReadLine());
+                //If the user types 1, deserialize and display tea names.
+                if (result == 1)
                 {
                     teaList = teaManager.ReadTeas();
                     foreach (var tea in teaList)
@@ -60,8 +59,8 @@ namespace TeaLog
                     }
 
                 }
-                //If the user types Add, ask for each field then add the tea to the main list.
-                else if(StringExtensions.FirstCharToUpper(result) == "Add")
+                //If the user types 2, ask for each field then add the tea to the main list.
+                else if(result == 2)
                 {
                     string additionalTea = "";
                     do
@@ -94,9 +93,9 @@ namespace TeaLog
                         additionalTea = Console.ReadLine();
                     } while (additionalTea == "Yes");
                 }
-                //If the user types Edit, ask for name of tea to edit.
+                //If the user types 3, ask for name of tea to edit.
                 //Ask for field to edit then get new field value.
-                else if (StringExtensions.FirstCharToUpper(result) == "Edit")
+                else if (result == 3)
                 {
                     Tea teaToEdit = new Tea();
                     teaList = teaManager.ReadTeas();
@@ -125,20 +124,20 @@ namespace TeaLog
                     }
                     else
                     {
-                        Console.WriteLine("That tea does not exist, please try again.");
+                        Console.WriteLine("That tea does not exist. Please try again.");
                         continue;
                     }
                 }
-                //If the user types Delete, ask for name of tea then delete it from file.
-                else if (StringExtensions.FirstCharToUpper(result) == "Delete")
+                //If the user types 4, ask for name of tea then delete it from file.
+                else if (result == 4)
                 {
                     Console.Write("Please type the name of the tea that you would like to delete: ");
                     string removeTea = Console.ReadLine();
                     teaManager.DeleteTea(removeTea);
                     Console.WriteLine("{0} was successfully deleted!", removeTea);
                 }
-                //If user types Quit, exit program.
-                else if (StringExtensions.FirstCharToUpper(result) == "Quit")
+                //If user types 5, exit program.
+                else if (result == 5)
                 {
                     return;
                 }
