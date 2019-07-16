@@ -16,8 +16,8 @@ namespace TeaLog
 
             TeaManager teaManager = new TeaManager(filePath);
             List<Tea> teaList = teaManager.ReadTeas();
-            int result = 0;
 
+            int result = 0;
             while (result != 5)
             {
                 //Provide options and ask for user input.
@@ -27,7 +27,11 @@ namespace TeaLog
                 Console.WriteLine("(3) Edit an existing tea.");
                 Console.WriteLine("(4) Delete a tea.");
                 Console.WriteLine("(5) Exit this application.");
-                result = Int32.Parse(Console.ReadLine());
+                bool success = Int32.TryParse(Console.ReadLine(), out result );
+                if (!success)
+                {
+                    Console.WriteLine("Invalid input. Please try again.");
+                }
                 //If the user types 1, deserialize and display tea names.
                 if (result == 1)
                 {
@@ -59,14 +63,12 @@ namespace TeaLog
                             Console.WriteLine("That tea does not exist. Please try again.");
                             continue;
                         }
-
                     }
                     //If the user types no, go back to the main menu.
                     else if(StringExtensions.FirstCharToUpper(answer) == "No")
                     {
                         continue;
                     }
-
                 }
                 //If the user types 2, ask for each field then add the tea to the main list.
                 else if(result == 2)
