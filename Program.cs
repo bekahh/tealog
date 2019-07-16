@@ -41,7 +41,7 @@ namespace TeaLog
                     //If the user types Yes, ask for the name of the tea they wish to view
                     //then show all fields for that tea.
                     string answer = Console.ReadLine();
-                    if(answer == "Yes")
+                    if(StringExtensions.FirstCharToUpper(answer) == "Yes")
                     {
                         teaList = teaManager.ReadTeas();
                         Console.Write("Type the name of the tea whose details you would like to view: ");
@@ -62,7 +62,7 @@ namespace TeaLog
 
                     }
                     //If the user types no, go back to the main menu.
-                    else if(answer == "No")
+                    else if(StringExtensions.FirstCharToUpper(answer) == "No")
                     {
                         continue;
                     }
@@ -100,7 +100,7 @@ namespace TeaLog
                         //Allow adding an additional tea if desired.
                         Console.WriteLine("Would you like to add another tea? Type Yes or No: ");
                         additionalTea = Console.ReadLine();
-                    } while (additionalTea == "Yes");
+                    } while (StringExtensions.FirstCharToUpper(additionalTea) == "Yes");
                 }
                 //If the user types 3, ask for name of tea to edit.
                 //Ask for field to edit then get new field value.
