@@ -52,7 +52,7 @@ namespace TeaLog
                             Console.WriteLine("Tea Name: " + selectedTea.TeaName + "\nTea Type: " +
                                 selectedTea.TeaType + "\nCompany name:  " + selectedTea.CompanyName +
                                 "\nCaffeinated: " + selectedTea.ContainsCaffeine + "\nRating(1-5, 5 being best): " + selectedTea.Rating +
-                                "\nNotes: " + selectedTea.Notes + "\n");
+                                "\nNotes: " + selectedTea.Notes);
                         }
                         else
                         {
@@ -110,7 +110,7 @@ namespace TeaLog
                     teaList = teaManager.ReadTeas();
                     Console.Write("Type the name of the tea that you would like to edit: ");
                     string editTeaName = Console.ReadLine();
-                    if(teaList.Exists(t => t.TeaName == editTeaName))
+                    if (teaList.Exists(t => t.TeaName == editTeaName))
                     {
                         string editOptions = "Tea Name, Tea Type, Company Name, Caffeine, Rating, or Notes";
                         teaToEdit = teaList.Find(t => t.TeaName == editTeaName);
@@ -140,10 +140,19 @@ namespace TeaLog
                 //If the user types 4, ask for name of tea then delete it from file.
                 else if (result == 4)
                 {
+                    teaList = teaManager.ReadTeas();
                     Console.Write("Please type the name of the tea that you would like to delete: ");
                     string removeTea = Console.ReadLine();
-                    teaManager.DeleteTea(removeTea);
-                    Console.WriteLine("{0} was successfully deleted!", removeTea);
+                    if (teaList.Exists(t => t.TeaName == removeTea))
+                    {
+                        teaManager.DeleteTea(removeTea);
+                        Console.WriteLine("{0} was successfully deleted!", removeTea);
+                    }
+                    else
+                    {
+                        Console.WriteLine("That tea does not exist. Please try again.");
+                        continue;
+                    }
                 }
                 //If user types 5, exit program.
                 else if (result == 5)
