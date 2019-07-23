@@ -28,12 +28,13 @@ namespace TeaLog
                 Console.WriteLine("(4) Delete a tea.");
                 Console.WriteLine("(5) Exit this application.");
                 bool success = Int32.TryParse(Console.ReadLine(), out result );
-                if (!success)
+                if (!success || result > 5)
                 {
                     Console.WriteLine("Invalid input. Please try again.");
+                    continue;
                 }
                 //If the user types 1, deserialize and display tea names.
-                if (result == 1)
+                else if (result == 1)
                 {
                     teaList = teaManager.ReadTeas();
                     foreach (var tea in teaList)
