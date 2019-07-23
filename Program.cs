@@ -103,7 +103,7 @@ namespace TeaLog
                         //Allow adding an additional tea if desired.
                         Console.WriteLine("Would you like to add another tea? Type Yes or No: ");
                         additionalTea = Console.ReadLine();
-                        if(additionalTea != "Yes" || additionalTea != "No")
+                        if(additionalTea != "Yes" && additionalTea != "No")
                         {
                             Console.WriteLine("Invalid input. Please try again.");
                             break;
