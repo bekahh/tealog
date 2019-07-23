@@ -106,7 +106,7 @@ namespace TeaLog
                         if(additionalTea != "Yes" || additionalTea != "No")
                         {
                             Console.WriteLine("Invalid input. Please try again.");
-                            continue;
+                            break;
                         }
                     } while (StringExtensions.FirstCharToUpper(additionalTea) == "Yes");
                 }
